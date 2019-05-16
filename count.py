@@ -1,4 +1,4 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 
 corpus = [
     ['This is the first document. This document is the second document. And this is the third one. Is this the first document?'],
@@ -10,7 +10,7 @@ input_search = [
 ]
 
 list_document = list()
-vectorizer = TfidfVectorizer()
+vectorizer = CountVectorizer()
 for corpus_item in corpus:
   X = vectorizer.fit_transform(corpus_item)
   Y = vectorizer.transform(input_search)
