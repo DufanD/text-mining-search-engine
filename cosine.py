@@ -1,6 +1,7 @@
 import pandas as pd
 import pprint
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import CountVectorizer
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
 # create stemmer
@@ -15,12 +16,13 @@ input_search = [
 ]
 
 list_document = list()
-vectorizer = TfidfVectorizer()
+vectorizer = CountVectorizer()
 
 for i in range(0, len(read_data)):
   output = stemmer.stem(read_data.loc[i][0])
   X = vectorizer.fit_transform([output])
   Y = vectorizer.transform(input_search)
-  list_document.append([read_data.loc[i][0][0:25], sum(Y.data)])
+  cosine = cosine_similarity(X, Y)
+  list_document.append([read_data.loc[i][0][0:25], cosine[0][0]])
 
 pprint.pprint(sorted(list_document, key = lambda x: x[1], reverse = True)[0:5])

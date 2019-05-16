@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as np
+import pprint
 from sklearn.feature_extraction.text import CountVectorizer
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
@@ -18,9 +18,9 @@ list_document = list()
 vectorizer = CountVectorizer()
 
 for i in range(0, len(read_data)):
-  output   = stemmer.stem(read_data.loc[i][0])
+  output = stemmer.stem(read_data.loc[i][0])
   X = vectorizer.fit_transform([output])
   Y = vectorizer.transform(input_search)
-  list_document.append([read_data.loc[i][0][0:10], sum(Y.data)])
+  list_document.append([read_data.loc[i][0][0:25], sum(Y.data)])
 
-print(sorted(list_document, key = lambda x: x[1], reverse = True)[0:5])
+pprint.pprint(sorted(list_document, key = lambda x: x[1], reverse = True)[0:5])
